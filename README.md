@@ -1,0 +1,1 @@
+Inspired from: https://interrupt.memfault.com/blog/firmware-shell
