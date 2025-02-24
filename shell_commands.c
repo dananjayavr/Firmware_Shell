@@ -47,6 +47,43 @@ int cli_cmd_kv_write(int argc, char *argv[]) {
     return 0;
 }
 
+#if 0
+int cli_cmd_led_ctrl(int argc, char *argv[]) {
+    // We expect 3 arguments:
+    // 1. Command name
+    // 2. LED
+    // 3. Value
+    if (argc != 3) {
+        shell_put_line("> FAIL,1");
+        return -1;
+    }
+
+    const char *led = argv[1];
+    const char *value = argv[2];
+
+    int led_a = (*led) - '0';
+    int value_a = (*value) - '0';
+
+    if(value_a > 1 || value_a < 0) {
+        shell_result_fail(1);
+        return -1;
+    }
+
+    if(led_a == 1) {
+        HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, value_a);
+    } else if (led_a == 2) {
+        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, value_a);
+    } else if (led_a == 3) {
+        HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, value_a);
+    } else {
+        shell_result_fail(1);
+        return -1;
+    }
+
+    shell_result_success();
+    return 0;
+}
+#endif
 
 static const sShellCommand s_shell_commands[] = {
     {"hello", cli_cmd_hello, "Say hello"},
